@@ -1,0 +1,37 @@
+[2025-05-20T18:12:07.963+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:10:27.486608+00:00 [queued]>
+[2025-05-20T18:12:07.987+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:10:27.486608+00:00 [queued]>
+[2025-05-20T18:12:07.988+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-20T18:12:08.021+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform_kpis> on 2025-05-20 18:10:27.486608+00:00
+[2025-05-20T18:12:08.030+0000] {standard_task_runner.py:57} INFO - Started process 853 to run task
+[2025-05-20T18:12:08.041+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'flight_price_pipeline', 'transform_kpis', 'manual__2025-05-20T18:10:27.486608+00:00', '--job-id', '21', '--raw', '--subdir', 'DAGS_FOLDER/dag_flight_pipeline.py', '--cfg-path', '/tmp/tmp7oep3jyb']
+[2025-05-20T18:12:08.050+0000] {standard_task_runner.py:85} INFO - Job 21: Subtask transform_kpis
+[2025-05-20T18:12:08.220+0000] {task_command.py:416} INFO - Running <TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:10:27.486608+00:00 [running]> on host afdaae69c771
+[2025-05-20T18:12:08.523+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flight_price_pipeline' AIRFLOW_CTX_TASK_ID='transform_kpis' AIRFLOW_CTX_EXECUTION_DATE='2025-05-20T18:10:27.486608+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-20T18:10:27.486608+00:00'
+[2025-05-20T18:12:08.526+0000] {transform.py:5} INFO - Starting data transformation and KPI computation
+[2025-05-20T18:12:09.038+0000] {transform.py:76} ERROR - Transformation failed: 1366 (HY000): Incorrect string value: '\xE2\x86\x92 SI...' for column 'dimension' at row 1
+[2025-05-20T18:12:09.039+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 633, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Incorrect string value: '\xE2\x86\x92 SI...' for column 'dimension' at row 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tasks/transform.py", line 68, in transform_and_compute_kpis
+    cursor.execute("""
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/cursor_cext.py", line 330, in execute
+    result = self._cnx.cmd_query(
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 86, in wrapper
+    result = method(cnx, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 641, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1366 (HY000): Incorrect string value: '\xE2\x86\x92 SI...' for column 'dimension' at row 1
+[2025-05-20T18:12:09.066+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=flight_price_pipeline, task_id=transform_kpis, execution_date=20250520T181027, start_date=20250520T181207, end_date=20250520T181209
+[2025-05-20T18:12:09.091+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 21 for task transform_kpis (1366 (HY000): Incorrect string value: '\xE2\x86\x92 SI...' for column 'dimension' at row 1; 853)
+[2025-05-20T18:12:09.138+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-05-20T18:12:09.174+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

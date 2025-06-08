@@ -1,0 +1,87 @@
+[2025-05-20T18:39:25.565+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:37:48.413300+00:00 [queued]>
+[2025-05-20T18:39:25.588+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:37:48.413300+00:00 [queued]>
+[2025-05-20T18:39:25.590+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-20T18:39:25.626+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform_kpis> on 2025-05-20 18:37:48.413300+00:00
+[2025-05-20T18:39:25.638+0000] {standard_task_runner.py:57} INFO - Started process 1277 to run task
+[2025-05-20T18:39:25.646+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'flight_price_pipeline', 'transform_kpis', 'manual__2025-05-20T18:37:48.413300+00:00', '--job-id', '27', '--raw', '--subdir', 'DAGS_FOLDER/dag_flight_pipeline.py', '--cfg-path', '/tmp/tmpi6algy8r']
+[2025-05-20T18:39:25.654+0000] {standard_task_runner.py:85} INFO - Job 27: Subtask transform_kpis
+[2025-05-20T18:39:25.772+0000] {task_command.py:416} INFO - Running <TaskInstance: flight_price_pipeline.transform_kpis manual__2025-05-20T18:37:48.413300+00:00 [running]> on host afdaae69c771
+[2025-05-20T18:39:26.039+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flight_price_pipeline' AIRFLOW_CTX_TASK_ID='transform_kpis' AIRFLOW_CTX_EXECUTION_DATE='2025-05-20T18:37:48.413300+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-20T18:37:48.413300+00:00'
+[2025-05-20T18:39:26.044+0000] {transform.py:6} INFO - Starting KPI transformation task
+[2025-05-20T18:39:26.219+0000] {logging_mixin.py:151} WARNING - /opt/***/dags/tasks/transform.py:16 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2025-05-20T18:39:27.314+0000] {transform.py:18} INFO - Loaded 171000 rows for KPI computation
+[2025-05-20T18:39:27.316+0000] {transform.py:24} WARNING - No 'Date' column found; skipping seasonal KPI
+[2025-05-20T18:39:27.402+0000] {transform.py:29} INFO - 📊 Average Total Fare per Airline:
+                  Airline   Total Fare
+               Air Arabia 69924.011840
+                Air Astra 68497.407118
+                Air India 72474.182215
+                  AirAsia 74534.389529
+Biman Bangladesh Airlines 70192.970951
+          British Airways 70555.535482
+           Cathay Pacific 73325.089224
+                 Emirates 70106.150834
+           Etihad Airways 71785.236683
+                 FlyDubai 68987.686965
+                 Gulf Air 71458.163156
+                   IndiGo 72504.442416
+           Kuwait Airways 71988.274562
+                Lufthansa 69293.164983
+       Malaysian Airlines 72775.178608
+                  NovoAir 68350.857257
+            Qatar Airways 69865.535496
+                   Saudia 69270.675222
+       Singapore Airlines 68323.925511
+       SriLankan Airlines 71265.261004
+             Thai Airways 72845.787513
+         Turkish Airlines 75547.266658
+       US-Bangla Airlines 72088.291544
+                  Vistara 68108.245072
+[2025-05-20T18:39:27.476+0000] {transform.py:33} INFO - ✈️ Most Frequent Routes:
+Source Destination  Flight Count
+   RJH         SIN          1251
+   DAC         DXB          1239
+   BZL         YYZ          1230
+   CXB         DEL          1224
+   CGP         BKK          1224
+[2025-05-20T18:39:27.514+0000] {transform.py:38} INFO - 🏆 Top 5 Destinations:
+Destination  Flight Count
+        JED          9213
+        DEL          9207
+        JFK          9198
+        SIN          9189
+        BKK          9108
+[2025-05-20T18:39:27.567+0000] {transform.py:43} INFO - 🛫 Booking Count by Airline:
+                  Airline  Booking Count
+       US-Bangla Airlines          13488
+                Lufthansa           7104
+                  Vistara           7104
+                 FlyDubai           7038
+Biman Bangladesh Airlines           7032
+                 Emirates           6981
+                   Saudia           6963
+             Thai Airways           6948
+                  AirAsia           6936
+                Air Astra           6912
+       Malaysian Airlines           6876
+           Cathay Pacific           6846
+                Air India           6840
+       Singapore Airlines           6837
+                  NovoAir           6804
+           Etihad Airways           6801
+            Qatar Airways           6801
+           Kuwait Airways           6786
+                 Gulf Air           6693
+                   IndiGo           6669
+         Turkish Airlines           6660
+               Air Arabia           6651
+          British Airways           6627
+       SriLankan Airlines           6603
+[2025-05-20T18:39:31.389+0000] {transform.py:62} INFO - 🌤 Seasonal Fare Variation:
+Peak Season  Avg Total Fare
+   Off-Peak    71030.316343
+[2025-05-20T18:39:31.390+0000] {transform.py:64} INFO - ✅ KPI computation completed successfully
+[2025-05-20T18:39:31.411+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-20T18:39:31.425+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=flight_price_pipeline, task_id=transform_kpis, execution_date=20250520T183748, start_date=20250520T183925, end_date=20250520T183931
+[2025-05-20T18:39:31.457+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-20T18:39:31.485+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
